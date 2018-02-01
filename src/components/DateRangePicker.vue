@@ -137,9 +137,15 @@
         this.monthDate = prevMonth(this.monthDate)
       },
       dateClick (value) {
+        console.log('hi')
+        selectedDate = new Date(value)
         if (this.in_selection) {
-          this.in_selection = false
-          this.end = new Date(value)
+          if(selectedDate < this.start) {
+            this.start = selectedDate
+          } else {
+            this.in_selection = false
+            this.end = new Date(value)
+          }
         } else {
           this.in_selection = true
           this.start = new Date(value)
