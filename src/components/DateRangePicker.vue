@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <calendar-ranges :canSelect="in_selection" @clickCancel="open=false"
+                <calendar-ranges @rangeSelected="selectRange" :canSelect="in_selection" @clickCancel="open=false"
                                  @clickApply="clickedApply" :ranges="ranges" class=" hidden-xs">
                 </calendar-ranges>
             </div>
@@ -52,151 +52,188 @@
 </template>
 
 <script>
-  import moment from 'moment'
-  import Calendar from './Calendar.vue'
-  import CalendarRanges from './CalendarRanges'
-  import { nextMonth, prevMonth } from './util'
-  import { mixin as clickaway } from 'vue-clickaway'
+    import moment from 'moment'
+    import Calendar from './Calendar.vue'
+    import CalendarRanges from './CalendarRanges'
+    import { nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth } from './util'
+    import { mixin as clickaway } from 'vue-clickaway'
 
-  export default {
-    components: {Calendar, CalendarRanges},
-    mixins: [clickaway],
-    props: {
-      localeData: {
-        type: Object,
-        default () {
-          return {}
+    export default {
+        components: {Calendar, CalendarRanges},
+        mixins: [clickaway],
+        props: {
+            localeData: {
+                type: Object,
+                default () {
+                    return {}
+                },
+            },
+            startDate: {
+                default () {
+                    return new Date()
+                }
+            },
+            endDate: {
+                default () {
+                    return new Date()
+                }
+            },
+            ranges: {
+                type: Object,
+                default () {
+                    return {
+                        'This month': new Date(),
+                        'This year': new Date(),
+                        'Last week': new Date(),
+                        'Last month': new Date(),
+                    }
+                }
+            },
+            opens: {
+                type: String,
+                default: 'center'
+            }
         },
-      },
-      startDate: {
-        default () {
-          return new Date()
-        }
-      },
-      endDate: {
-        default () {
-          return new Date()
-        }
-      },
-      ranges: {
-        type: Object,
-        default () {
-          return {
-            'Today': new Date(),
-            'Yesterday': new Date(),
-            'This month': new Date(),
-            'This year': new Date(),
-            'Last week': new Date(),
-            'Last month': new Date(),
-          }
-        }
-      },
-      opens: {
-        type: String,
-        default: 'center'
-      }
-    },
-    data () {
-      let default_locale = {
-        direction: 'ltr',
-        format: moment.localeData().longDateFormat('L'),
-        separator: ' - ',
-        applyLabel: 'Apply',
-        cancelLabel: 'Cancel',
-        weekLabel: 'W',
-        customRangeLabel: 'Custom Range',
-        daysOfWeek: moment.weekdaysMin(),
-        monthNames: moment.monthsShort(),
-        firstDay: moment.localeData().firstDayOfWeek()
-      }
+        data () {
+            let default_locale = {
+                direction: 'ltr',
+                format: moment.localeData().longDateFormat('L'),
+                separator: ' - ',
+                applyLabel: 'Apply',
+                cancelLabel: 'Cancel',
+                weekLabel: 'W',
+                customRangeLabel: 'Custom Range',
+                daysOfWeek: moment.weekdaysMin(),
+                monthNames: moment.monthsShort(),
+                firstDay: moment.localeData().firstDayOfWeek()
+            }
 
-      // let data = { locale: _locale }
-      let data = { locale: {...default_locale, ...this.localeData}}
+            // let data = { locale: _locale }
+            let data = { locale: {...default_locale, ...this.localeData}}
 
-      data.monthDate = new Date(this.startDate)
-      data.start = new Date(this.startDate)
-      data.end = new Date(this.endDate)
-      data.in_selection = false
-      data.open = false
+            data.monthDate = new Date(this.startDate)
+            data.start = new Date(this.startDate)
+            data.end = new Date(this.endDate)
+            data.in_selection = false
+            data.open = false
 
-      // update day names order to firstDay
-      if (data.locale.firstDay !== 0) {
-        let iterator = data.locale.firstDay
-        while (iterator > 0) {
-          data.locale.daysOfWeek.push(data.locale.daysOfWeek.shift())
-          iterator--
+            // update day names order to firstDay
+            if (data.locale.firstDay !== 0) {
+                let iterator = data.locale.firstDay
+                while (iterator > 0) {
+                    data.locale.daysOfWeek.push(data.locale.daysOfWeek.shift())
+                    iterator--
+                }
+            }
+            return data
+        },
+        methods: {
+            nextMonth () {
+                this.monthDate = nextMonth(this.monthDate)
+            },
+            prevMonth () {
+                this.monthDate = prevMonth(this.monthDate)
+            },
+            selectThisMonth () {
+                let thisDateRange = thisMonth()
+                this.start = thisDateRange.start
+                this.end = thisDateRange.end
+            },
+            selectThisYear () {
+                let thisDateRange = thisYear()
+                this.start = thisDateRange.start
+                this.end = thisDateRange.end
+            },
+            selectLastWeek () {
+                let thisDateRange = lastWeek()
+                this.start = thisDateRange.start
+                this.end = thisDateRange.end
+            },
+            selectLastMonth () {
+                let thisDateRange = lastMonth()
+                this.start = thisDateRange.start
+                this.end = thisDateRange.end
+            },
+            dateClick (value) {
+                let selectedDate = new Date(value)
+                if (this.in_selection) {
+                    if(selectedDate < this.start) {
+                        this.start = selectedDate
+                    } else {
+                        this.in_selection = false
+                        this.end = new Date(value)
+                    }
+                } else {
+                    this.in_selection = true
+                    this.start = new Date(value)
+                    this.end = new Date(value)
+                }
+            },
+            hoverDate (value) {
+                let dt = new Date(value)
+                if (this.in_selection && dt > this.start)
+                    this.end = dt
+            },
+            togglePicker () {
+                this.open = !this.open
+            },
+            pickerStyles () {
+                return {
+                    'show-calendar': this.open,
+                    opensright: this.opens === 'right',
+                    opensleft: this.opens === 'left',
+                    openscenter: this.opens === 'center'
+                }
+            },
+            clickedApply () {
+                this.open = false
+                this.$emit('update', {startDate: this.start, endDate: this.end})
+            },
+            clickAway () {
+                if (this.open) {
+                    this.open = false
+                }
+            },
+            selectRange(rangeType) {
+                let dateRange = {}
+                switch( rangeType ) {
+                  case 'This month':
+                    this.selectThisMonth()
+                    break;
+                  case 'This year':
+                    this.selectThisYear()
+                    break;
+                  case 'Last week':
+                    this.selectLastWeek()
+                    break;
+                  case 'Last month':
+                    this.selectLastMonth()
+                    break;
+                  default:
+                    break;
+                }
+            }
+        },
+        computed: {
+            nextMonthDate () {
+                return nextMonth(this.monthDate)
+            },
+            startText () {
+                return this.start.toLocaleDateString()
+            },
+            endText () {
+                return new Date(this.end).toLocaleDateString()
+            }
+        },
+        watch: {
+            startDate (value) {
+                this.start = new Date(value)
+            },
+            endDate (value) {
+                this.end = new Date(value)
+            }
         }
-      }
-      return data
-    },
-    methods: {
-      nextMonth () {
-        this.monthDate = nextMonth(this.monthDate)
-      },
-      prevMonth () {
-        this.monthDate = prevMonth(this.monthDate)
-      },
-      dateClick (value) {
-        let selectedDate = new Date(value)
-        if (this.in_selection) {
-          if(selectedDate < this.start) {
-            this.start = selectedDate
-          } else {
-            this.in_selection = false
-            this.end = new Date(value)
-          }
-        } else {
-          this.in_selection = true
-          this.start = new Date(value)
-          this.end = new Date(value)
-        }
-      },
-      hoverDate (value) {
-        let dt = new Date(value)
-        if (this.in_selection && dt > this.start)
-          this.end = dt
-      },
-      togglePicker () {
-        this.open = !this.open
-      },
-      pickerStyles () {
-        return {
-          'show-calendar': this.open,
-          opensright: this.opens === 'right',
-          opensleft: this.opens === 'left',
-          openscenter: this.opens === 'center'
-        }
-      },
-      clickedApply () {
-        this.open = false
-        this.$emit('update', {startDate: this.start, endDate: this.end})
-      },
-      clickAway () {
-        if (this.open) {
-          this.open = false
-        }
-      }
-    },
-    computed: {
-      nextMonthDate () {
-        return nextMonth(this.monthDate)
-      },
-      startText () {
-        return this.start.toLocaleDateString()
-      },
-      endText () {
-        return new Date(this.end).toLocaleDateString()
-      }
-    },
-    watch: {
-      startDate (value) {
-        this.start = new Date(value)
-      },
-      endDate (value) {
-        this.end = new Date(value)
-      }
     }
-  }
 
 </script>
 

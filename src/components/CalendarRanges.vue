@@ -6,13 +6,18 @@
         </div>
 
         <ul v-if="ranges">
-            <li v-for="(value, key) in ranges" :key="key">{{key}}</li>
+            <li v-for="(value, key) in ranges" :key="key" @click="selectedRange(key)">{{key}}</li>
         </ul>
     </div>
 </template>
 
 <script>
     export default {
-        props: ['canSelect', 'ranges']
+        props: ['canSelect', 'ranges'],
+        methods: {
+          selectedRange(rangeType) {
+            this.$emit('rangeSelected', rangeType)
+          }
+        }
     }
 </script>
