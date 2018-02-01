@@ -1,6 +1,8 @@
 const nextMonth = (date) => {
+
     let dateMoment = moment(date)
     dateMoment.add('1', 'month')
+    console.log("v9")
     return dateMoment.toDate();
 }
 
