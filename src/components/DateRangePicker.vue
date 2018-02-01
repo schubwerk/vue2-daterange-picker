@@ -138,7 +138,7 @@
       },
       dateClick (value) {
         console.log('hi')
-        selectedDate = new Date(value)
+        let selectedDate = new Date(value)
         if (this.in_selection) {
           if(selectedDate < this.start) {
             this.start = selectedDate
