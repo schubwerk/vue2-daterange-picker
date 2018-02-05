@@ -3,7 +3,8 @@
         <div class="reportrange-text" @click="togglePicker">
             <slot name="input">
                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
-                <span>{{startText}} - {{endText}}</span>
+                <span v-if="dateFilterApplied">{{startText}} - {{endText}}</span>
+                <span v-else>Please select a date range.</span>
                 <b class="caret"></b>
             </slot>
         </div>
@@ -43,7 +44,7 @@
                     </div>
                 </div>
 
-                <calendar-ranges @rangeSelected="selectRange" :canSelect="in_selection" @clickCancel="open=false"
+                <calendar-ranges @rangeSelected="selectRange" :canSelect="in_selection" @clickCancel="cancelClicked"
                                  @clickApply="clickedApply" :ranges="ranges" class=" hidden-xs">
                 </calendar-ranges>
             </div>
@@ -116,6 +117,7 @@
             data.end = new Date(this.endDate)
             data.in_selection = false
             data.open = false
+            data.dateFilterApplied = false
 
             // update day names order to firstDay
             if (data.locale.firstDay !== 0) {
@@ -187,6 +189,7 @@
             },
             clickedApply () {
                 this.open = false
+                this.dateFilterApplied = true
                 this.$emit('update', {startDate: this.start, endDate: this.end})
             },
             clickAway () {
@@ -212,6 +215,11 @@
                   default:
                     break;
                 }
+            },
+            cancelClicked() {
+                this.dateFilterApplied = false
+                this.open = false
+                this.$emit('update', null)
             }
         },
         computed: {
@@ -222,7 +230,7 @@
                 return this.start.toLocaleDateString()
             },
             endText () {
-                return new Date(this.end).toLocaleDateString()
+                return this.end.toLocaleDateString()
             }
         },
         watch: {
