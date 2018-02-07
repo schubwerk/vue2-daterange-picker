@@ -15,7 +15,7 @@
                 <div class="calendar left">
                     <div class="daterangepicker_input hidden-xs">
                         <input class="input-mini form-control" type="text" name="daterangepicker_start"
-                               :value="startText"/>
+                               :value="startText" readonly/>
                         <i class="fa fa-calendar glyphicon glyphicon-calendar"></i>
                     </div>
                     <div class="calendar-table">
@@ -31,7 +31,7 @@
                 <div class="calendar right hidden-xs">
                     <div class="daterangepicker_input">
                         <input class="input-mini form-control" type="text" name="daterangepicker_end"
-                               :value="endText"/>
+                               :value="endText" readonly/>
                         <i class="fa fa-calendar glyphicon glyphicon-calendar"></i>
                     </div>
                     <div class="calendar-table">
@@ -246,69 +246,5 @@
 </script>
 
 <style>
-    .range_inputs {
-        margin-bottom: 10px;
-    }
-
-    .reportrange-text {
-        background: #fff;
-        cursor: pointer;
-        padding: 5px 10px;
-        border: 1px solid #ccc;
-        width: 100%;
-    }
-
-    .daterangepicker.show-calendar {
-        display: inline-flex;
-    }
-
-    .daterangepicker .ranges {
-        width: 160px;
-    }
-
-    .ranges {
-        width: 130px;
-    }
-
-    .show-calendar {
-        display: block;
-        width: auto;
-    }
-
-    div.daterangepicker.opensleft {
-        top: 35px;
-        right: 10px;
-        left: auto;
-    }
-
-    div.daterangepicker.openscenter {
-        top: 35px;
-        right: auto;
-        left: 50%;
-        transform: translate(-50%, 0);
-    }
-
-    div.daterangepicker.opensright {
-        top: 35px;
-        left: 10px;
-        right: auto;
-    }
-
-    /* Enter and leave animations can use different */
-    /* durations and timing functions.              */
-    .slide-fade-enter-active {
-        transition: all .2s ease;
-    }
-
-    .slide-fade-leave-active {
-        transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-
-    .slide-fade-enter, .slide-fade-leave-to
-        /* .slide-fade-leave-active for <2.1.8 */
-    {
-        transform: translateX(10px);
-        opacity: 0;
-    }
-
+    @import '../styles/DateRangePicker.scss'
 </style>

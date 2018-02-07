@@ -101,7 +101,5 @@
 </script>
 
 <style>
-    td.today {
-        font-weight: bold;
-    }
+    @import '../styles/Calendar.scss'
 </style>
