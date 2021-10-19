@@ -61,7 +61,7 @@
     import moment from 'moment'
     import Calendar from './Calendar.vue'
     import CalendarRanges from './CalendarRanges'
-    import { today, nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth } from './util'
+    import { today, nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth,last30,last365 } from './util'
     import { mixin as clickaway } from 'vue-clickaway'
 
     moment.locale('de');
