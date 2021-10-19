@@ -36,13 +36,13 @@ const lastMonth = () => {
 
 const last30 = () => {
   let start = moment().subtract('1', 'month').toDate()
-  let end = moment()
+  let end = moment().toDate()
   return {'start': start, 'end': end}
 }
 
 const last365 = () => {
   let start = moment().subtract('1', 'year').toDate()
-  let end = moment()
+  let end = moment().toDate()
   return {'start': start, 'end': end}
 }
 

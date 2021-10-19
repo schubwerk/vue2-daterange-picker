@@ -296,7 +296,6 @@
             ...mapState('user', ['user']),
 
             nextMonthDate () {
-                
                 return nextMonth(this.monthDate)
             },
             startText () {
