@@ -90,13 +90,13 @@ export default {
             type: Object,
             default () {
                 return {
-                    'Letzten 30 Tage':new Date(),
-                    'Letzten 365 Tage':new Date(),
-                    'Dieser Monat': new Date(),
-                    'Letzter Monat': new Date(),
-                    'Dieses Jahr': new Date(),
-                    'Maximaler Zeitraum': new Date(),
-                    'Heute': new Date()
+                  'Last 30 Days': new Date(),
+                  'Last 365 Days': new Date(),
+                  'This Month': new Date(),
+                  'Last Month': new Date(),
+                  'This Year': new Date(),
+                  'Maximal Range': new Date(),
+                  'Today': new Date()
                 }
             }
         },
