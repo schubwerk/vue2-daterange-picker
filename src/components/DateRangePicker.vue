@@ -266,28 +266,28 @@ export default {
         selectRange(rangeType) {
             let dateRange = {}
             switch( rangeType ) {
-                case 'Maximaler Zeitraum':
+                case 'Maximal Range':
                     this.selectMax()
                     break;
-                case 'Letzten 30 Tage':
+                case 'Last 30 Days':
                     this.selectLast30()
                     break;
-                case 'Letzten 365 Tage':
+                case 'Last 365 Days':
                     this.selectLast365()
                     break;
-                case 'Dieser Monat':
+                case 'This Month':
                     this.selectThisMonth()
                     break;
-                case 'Dieses Jahr':
+                case 'This Year':
                     this.selectThisYear()
                     break;
-                case 'Letzte Woche':
+                case 'Last Week':
                     this.selectLastWeek()
                     break;
-                case 'Letzter Monat':
+                case 'Last Month':
                     this.selectLastMonth()
                     break;
-                case 'Heute':
+                case 'Today':
                     this.selectToday()
                     break
                 default:

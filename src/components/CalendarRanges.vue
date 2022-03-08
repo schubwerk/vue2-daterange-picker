@@ -21,7 +21,7 @@ export default {
     return{
       translations:{
         de:{
-          'Apply':'Anwernden',
+          'Apply':'Anwenden',
           'Cancel': 'Abbrechen',
           'Last 30 Days':'Letzten 30 Tage',
           'Last 365 Days':'Letzten 365 Tage',
