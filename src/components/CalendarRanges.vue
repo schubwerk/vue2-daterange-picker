@@ -27,6 +27,7 @@ export default {
           'Last 365 Days':'Letzten 365 Tage',
           'This Month':'Dieser Monat',
           'Last Month':'Letzter Monat',
+          'This Year':'Dieses Jahr',
           'Maximal Range':'Maximaler Zeitraum',
           'Today':'Heute',
         },
@@ -37,6 +38,7 @@ export default {
           'Last 365 Days':'Last 365 Days',
           'This Month':'This Month',
           'Last Month':'Last Month',
+          'This Year':'This Year',
           'Maximal Range':'Maximal Range',
           'Today':'Today',
         }
