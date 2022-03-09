@@ -184,8 +184,8 @@ export default {
         },
         selectToday () {
             let todayDate = today()
-            this.start = todayDate
-            this.end = todayDate
+            this.start = todayDate.start
+            this.end = todayDate.end
         },
         selectThisMonth () {
             let thisDateRange = thisMonth()
