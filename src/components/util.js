@@ -47,13 +47,15 @@ const last365 = () => {
 }
 
 const maxDateRange = () => {
-  let start = moment('2010-01-01').toDate()
-  let end = moment().subtract('1','day').toDate()
+  let start = moment().subtract('8', 'year').startOf('year').toDate()
+  let end = moment().toDate()
   return {'start': start, 'end': end}
 };
 
 const today = () => {
-  return moment().toDate()
+  let start = moment().startOf('day').subtract('1','day').toDate()
+  let end = moment().endOf('day').toDate()
+  return {'start': start, 'end': end}
 }
 
 export { nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth, today,last30,last365,maxDateRange}
