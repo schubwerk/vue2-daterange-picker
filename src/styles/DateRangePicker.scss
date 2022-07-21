@@ -402,3 +402,18 @@ div.daterangepicker.opensright {
         clear: none !important;
     }
 }
+.datepicker-btn {
+  margin-right: 10px;
+}
+@media (max-width:991px){
+  .datepicker-btn{
+    max-width: 300px !important;
+    min-width: 300px !important;
+    padding: 6px !important;
+    margin: 5px 0px !important;
+    margin-right: 0px;
+  }
+}
+.mr-10{
+  margin-right: 10px;
+}
