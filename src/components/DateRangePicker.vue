@@ -1,6 +1,6 @@
 <template>
     <div style="position: relative; display: inline-block;">
-        <div class="reportrange-text" @click="togglePicker">
+        <div class="btn btn-primary datepicker-btn mr-10" @click="togglePicker">
             <slot name="input">
                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
                 <span v-if="dateFilterApplied">{{startText}} - {{endText}}</span>
