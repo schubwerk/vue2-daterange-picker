@@ -1,6 +1,6 @@
 <template>
     <div style="position: relative; display: inline-block;">
-        <div class="btn btn-primary datepicker-btn mr-10" @click="togglePicker">
+        <div id="datepicker" class="btn btn-primary datepicker-btn mr-10" @click="togglePicker">
             <slot name="input">
                 <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
                 <span v-if="dateFilterApplied">{{startText}} - {{endText}}</span>
@@ -14,7 +14,7 @@
 
                 <div class="calendar left hidden-xs">
                     <div class="daterangepicker_input ">
-                        <input class="input-mini form-control" type="text" name="daterangepicker_start"
+                        <input class="input-start-date" class="input-mini form-control" type="text" name="daterangepicker_start"
                                :value="startText"
                                @change="changeInputDateStart"
                                @blur="changeInputDateStart"/>
@@ -31,7 +31,7 @@
 
                 <div class="calendar right hidden-xs hidden-sm">
                     <div class="daterangepicker_input">
-                        <input class="input-mini form-control" type="text" name="daterangepicker_end"
+                        <input id="input-end-date" class="input-mini form-control" type="text" name="daterangepicker_end"
                                :value="endText"
                                @change="changeInputDateEnd"
                                @blur="changeInputDateEnd"/>

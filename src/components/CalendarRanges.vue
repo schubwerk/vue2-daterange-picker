@@ -5,7 +5,7 @@
     </ul>
 
     <div class="range_inputs">
-      <button class="applyBtn btn btn-block btn-sm btn-primary" :disabled="canSelect" type="button" @click="$emit('clickApply')">
+      <button id="apply-button" class="applyBtn btn btn-block btn-sm btn-primary" :disabled="canSelect" type="button" @click="$emit('clickApply')">
         {{ langGet('Apply') }}
       </button>
       <button class="cancelBtn btn btn-block btn-sm btn-default" type="button" @click="$emit('clickCancel')">
