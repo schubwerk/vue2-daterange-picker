@@ -14,7 +14,7 @@
 
                 <div class="calendar left hidden-xs">
                     <div class="daterangepicker_input ">
-                        <input class="input-start-date" class="input-mini form-control" type="text" name="daterangepicker_start"
+                        <input id="input-start-date" class="input-mini form-control" type="text" name="daterangepicker_start"
                                :value="startText"
                                @change="changeInputDateStart"
                                @blur="changeInputDateStart"/>
